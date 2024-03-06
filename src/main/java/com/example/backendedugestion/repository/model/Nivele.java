@@ -12,10 +12,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "departamentos")
+@Table(name = "niveles")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departamento {
+public class Nivele {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,10 +24,7 @@ public class Departamento {
     @Column(name = "nombre", length = 30)
     private String nombre;
 
-    @Column(name = "descripcion", length = Integer.MAX_VALUE)
-    private String descripcion;
-
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idNivel")
+    private Set<Grado> grados = new LinkedHashSet<>();
 
 }

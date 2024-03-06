@@ -7,27 +7,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "departamentos")
+@Table(name = "cursos")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departamento {
+public class Curso {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nombre", length = 30)
     private String nombre;
 
-    @Column(name = "descripcion", length = Integer.MAX_VALUE)
-    private String descripcion;
+    @Column(name = "nrohoras")
+    private Short nrohoras;
 
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "curso")
+    private List<CursoSeccion> cursoSeccion;
+
+    @OneToMany(mappedBy = "idCurso")
+    private Set<Nota> notas = new LinkedHashSet<>();
 
 }

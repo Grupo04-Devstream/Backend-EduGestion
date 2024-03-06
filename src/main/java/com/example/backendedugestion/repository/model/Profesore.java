@@ -12,22 +12,23 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "departamentos")
+@Table(name = "profesores")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departamento {
+public class Profesore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", length = 30)
-    private String nombre;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_trabajador")
+    private Trabajadore idTrabajador;
 
-    @Column(name = "descripcion", length = Integer.MAX_VALUE)
-    private String descripcion;
+    @Column(name = "especialidad", length = 30)
+    private String especialidad;
 
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idProfesor")
+    private Set<CursoSeccion> cursoSeccions = new LinkedHashSet<>();
 
 }

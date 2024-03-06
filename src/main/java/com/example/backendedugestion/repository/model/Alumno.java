@@ -12,23 +12,26 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "grados")
+@Table(name = "alumnos")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Grado {
+public class Alumno {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_nivel")
-    private Nivele idNivel;
+    @JoinColumn(name = "id_usuario")
+    private Usuario idUsuario;
 
-    @Column(name = "gradonro")
-    private Integer gradonro;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_seccion")
+    private Seccione idSeccion;
 
-    @OneToMany(mappedBy = "idGrado")
-    private Set<Seccione> secciones = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAlumno")
+    private Set<Nota> notas = new LinkedHashSet<>();
 
+
+    //TODO [JPA Buddy] generate columns from DB
 }
