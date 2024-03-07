@@ -40,13 +40,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public boolean deleteById(Integer id) {
         usuarioJpaRepository.deleteById(id);
+        return true;
     }
 
     @Override
-    public Usuario update(Integer id) {
-        return null;
+    public Usuario update(Integer id, UsuarioRequest usuarioRequest) {
+        Usuario usuario = usuarioJpaRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            return null;
+        }
+        usuario.setNombre(usuarioRequest.getNombre());
+        usuario.setApellido(usuarioRequest.getApellido());
+        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setPassword(usuarioRequest.getPassword());
+        usuario.setIdRol(usuarioRequest.getRol());
+        usuario.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
+        return usuarioJpaRepository.save(usuario);
     }
 
     private Usuario toEntity(UsuarioRequest usuarioRequest) {

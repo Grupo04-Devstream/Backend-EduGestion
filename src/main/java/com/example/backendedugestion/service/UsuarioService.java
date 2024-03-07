@@ -11,6 +11,6 @@ public interface UsuarioService {
     Usuario findById(Integer id);
     Usuario findByEmailAndPassword(String email, String password);
     List<Usuario> findAll();
-    void deleteById(Integer id);
-    Usuario update(Integer id);
+    boolean deleteById(Integer id);
+    Usuario update(Integer id, UsuarioRequest usuarioRequest);
 }

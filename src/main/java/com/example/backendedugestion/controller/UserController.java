@@ -30,4 +30,14 @@ public class UserController {
     public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(usuarioService.findById(id));
     }
+
+    @DeleteMapping("/usuarios/{id}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.deleteById(id));
+    }
+
+    @PutMapping("/usuarios/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody UsuarioRequest usuarioRequest) {
+        return ResponseEntity.ok(usuarioService.update(id, usuarioRequest));
+    }
 }
