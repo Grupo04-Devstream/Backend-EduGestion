@@ -35,6 +35,12 @@ public class Usuario {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "password", length = 100)
+    private String password;
+
     @OneToMany(mappedBy = "idUsuario")
     private Set<Alumno> alumnos = new LinkedHashSet<>();
 
