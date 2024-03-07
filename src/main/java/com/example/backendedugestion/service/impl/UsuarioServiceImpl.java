@@ -1,5 +1,6 @@
 package com.example.backendedugestion.service.impl;
 
+import com.example.backendedugestion.controller.request.UsuarioRequest;
 import com.example.backendedugestion.repository.UsuarioJpaRepository;
 import com.example.backendedugestion.repository.model.Usuario;
 import com.example.backendedugestion.service.UsuarioService;
@@ -14,25 +15,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioJpaRepository usuarioJpaRepository;
 
     @Override
-    public Usuario save(Usuario usuario) {
-        return usuarioJpaRepository.save(usuario);
-    }
-
-    @Override
-    public Usuario findByUsername(String username) {
-
-        //return usuarioJpaRepository.findByUsername(username);
-        return null;
+    public Usuario save(UsuarioRequest usuario) {
+        return usuarioJpaRepository.save(toEntity(usuario));
     }
 
     @Override
     public Usuario findByEmail(String email) {
-        return null;
+        return usuarioJpaRepository.findByEmail(email);
     }
 
     @Override
-    public Usuario findByUsernameAndPassword(String username, String password) {
-        return null;
+    public Usuario findById(Integer id) {
+        return usuarioJpaRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -46,12 +40,34 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public boolean deleteById(Integer id) {
         usuarioJpaRepository.deleteById(id);
+        return true;
     }
 
     @Override
-    public Usuario update(Integer id) {
-        return null;
+    public Usuario update(Integer id, UsuarioRequest usuarioRequest) {
+        Usuario usuario = usuarioJpaRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            return null;
+        }
+        usuario.setNombre(usuarioRequest.getNombre());
+        usuario.setApellido(usuarioRequest.getApellido());
+        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setPassword(usuarioRequest.getPassword());
+        usuario.setIdRol(usuarioRequest.getRol());
+        usuario.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
+        return usuarioJpaRepository.save(usuario);
+    }
+
+    private Usuario toEntity(UsuarioRequest usuarioRequest) {
+        return Usuario.builder()
+                .nombre(usuarioRequest.getNombre())
+                .apellido(usuarioRequest.getApellido())
+                .email(usuarioRequest.getEmail())
+                .password(usuarioRequest.getPassword())
+                .idRol(usuarioRequest.getRol())
+                .fechaNacimiento(usuarioRequest.getFechaNacimiento())
+                .build();
     }
 }
