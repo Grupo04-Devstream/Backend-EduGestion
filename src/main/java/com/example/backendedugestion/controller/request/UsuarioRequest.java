@@ -11,6 +11,4 @@ public class UsuarioRequest {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String password;
-    private Set<Alumno> alumnos;
-    private Set<Trabajadore> trabajadores;
 }
