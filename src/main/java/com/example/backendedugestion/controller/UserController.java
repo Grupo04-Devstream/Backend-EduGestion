@@ -17,7 +17,10 @@ public class UserController {
     private UsuarioService usuarioService;
 
     @GetMapping("/usuarios")
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<Usuario>> findAll(@RequestParam(required = false) String mail) {
+        if (mail != null) {
+            return ResponseEntity.ok(List.of(usuarioService.findByEmail(mail)));
+        }
         return ResponseEntity.ok(usuarioService.findAll());
     }
 
@@ -40,4 +43,6 @@ public class UserController {
     public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody UsuarioRequest usuarioRequest) {
         return ResponseEntity.ok(usuarioService.update(id, usuarioRequest));
     }
+
+
 }

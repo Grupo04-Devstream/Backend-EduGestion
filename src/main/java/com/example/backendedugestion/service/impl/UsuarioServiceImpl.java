@@ -21,7 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario findByEmail(String email) {
-        return null;
+        return usuarioJpaRepository.findByEmail(email);
     }
 
     @Override
