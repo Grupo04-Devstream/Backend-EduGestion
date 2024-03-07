@@ -1,5 +1,6 @@
 package com.example.backendedugestion.service.impl;
 
+import com.example.backendedugestion.controller.request.UsuarioRequest;
 import com.example.backendedugestion.repository.UsuarioJpaRepository;
 import com.example.backendedugestion.repository.model.Usuario;
 import com.example.backendedugestion.service.UsuarioService;
@@ -14,15 +15,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioJpaRepository usuarioJpaRepository;
 
     @Override
-    public Usuario save(Usuario usuario) {
-        return usuarioJpaRepository.save(usuario);
-    }
-
-    @Override
-    public Usuario findByUsername(String username) {
-
-        //return usuarioJpaRepository.findByUsername(username);
-        return null;
+    public Usuario save(UsuarioRequest usuario) {
+        return usuarioJpaRepository.save(toEntity(usuario));
     }
 
     @Override
@@ -31,8 +25,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario findByUsernameAndPassword(String username, String password) {
-        return null;
+    public Usuario findById(Integer id) {
+        return usuarioJpaRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -53,5 +47,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario update(Integer id) {
         return null;
+    }
+
+    private Usuario toEntity(UsuarioRequest usuarioRequest) {
+        return Usuario.builder()
+                .nombre(usuarioRequest.getNombre())
+                .apellido(usuarioRequest.getApellido())
+                .email(usuarioRequest.getEmail())
+                .password(usuarioRequest.getPassword())
+                .idRol(usuarioRequest.getRol())
+                .fechaNacimiento(usuarioRequest.getFechaNacimiento())
+                .build();
     }
 }

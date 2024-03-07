@@ -6,9 +6,7 @@ import com.example.backendedugestion.repository.model.Usuario;
 import com.example.backendedugestion.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,15 @@ public class UserController {
     @GetMapping("/usuarios")
     public ResponseEntity<List<Usuario>> findAll() {
         return ResponseEntity.ok(usuarioService.findAll());
+    }
+
+    @PostMapping("/usuarios")
+    public ResponseEntity<Usuario> save(@RequestBody UsuarioRequest usuarioRequest) {
+        return ResponseEntity.ok(usuarioService.save(usuarioRequest));
+    }
+
+    @GetMapping("/usuarios/{id}")
+    public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.findById(id));
     }
 }

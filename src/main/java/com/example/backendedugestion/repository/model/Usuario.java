@@ -1,10 +1,8 @@
 package com.example.backendedugestion.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -16,13 +14,15 @@ import java.util.Set;
 @Table(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(/*fetch = FetchType.LAZY*/)
     @JoinColumn(name = "id_rol")
     private Role idRol;
 
