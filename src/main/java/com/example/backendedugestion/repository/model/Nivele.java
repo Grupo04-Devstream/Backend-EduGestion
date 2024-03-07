@@ -1,10 +1,7 @@
 package com.example.backendedugestion.repository.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Table(name = "niveles")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Nivele {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
