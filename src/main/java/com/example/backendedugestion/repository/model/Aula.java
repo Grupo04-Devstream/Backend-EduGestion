@@ -12,22 +12,28 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "departamentos")
+@Table(name = "aulas")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departamento {
+public class Aula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", length = 30)
-    private String nombre;
-
-    @Column(name = "descripcion", length = Integer.MAX_VALUE)
+    @Column(name = "descripcion", length = 30)
     private String descripcion;
 
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+    @Column(name = "piso")
+    private Integer piso;
+
+    @Column(name = "capacidad")
+    private Integer capacidad;
+
+    @Column(name = "pabellon")
+    private Integer pabellon;
+
+    @OneToOne(mappedBy = "idAula")
+    private Seccione secciones;
 
 }

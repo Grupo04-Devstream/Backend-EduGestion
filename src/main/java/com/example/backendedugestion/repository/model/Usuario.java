@@ -1,38 +1,44 @@
 package com.example.backendedugestion.repository.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-@Entity
-@Table(name = "usuario")
 @Getter
 @Setter
-@AllArgsConstructor
+@Entity
+@Table(name = "usuarios")
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(name = "dni")
-    private String dni;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol")
+    private Role idRol;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", length = 100)
     private String nombre;
 
-    @Column(name = "apellido")
+    @Column(name = "apellido", length = 100)
     private String apellido;
 
     @Column(name = "fecha_nacimiento")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
-    @Column(name = "email")
-    private String email;
+    @OneToMany(mappedBy = "idUsuario")
+    private Set<Alumno> alumnos = new LinkedHashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "id_rol")
-    private Rol rol;
+    @OneToMany(mappedBy = "idUsuario")
+    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+
 }

@@ -6,28 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "departamentos")
+@Table(name = "notas")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departamento {
+public class Nota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", length = 30)
-    private String nombre;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_alumno")
+    private Alumno idAlumno;
 
-    @Column(name = "descripcion", length = Integer.MAX_VALUE)
-    private String descripcion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_curso")
+    private Curso idCurso;
 
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
+    @Column(name = "nota", precision = 4, scale = 2)
+    private BigDecimal nota;
 
 }
