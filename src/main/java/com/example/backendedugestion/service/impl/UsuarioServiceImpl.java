@@ -1,7 +1,9 @@
 package com.example.backendedugestion.service.impl;
 
 import com.example.backendedugestion.controller.request.UsuarioRequest;
+import com.example.backendedugestion.repository.RoleJpaRepository;
 import com.example.backendedugestion.repository.UsuarioJpaRepository;
+import com.example.backendedugestion.repository.model.Role;
 import com.example.backendedugestion.repository.model.Usuario;
 import com.example.backendedugestion.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import java.util.List;
 public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private UsuarioJpaRepository usuarioJpaRepository;
+
+    @Autowired
+    private RoleJpaRepository roleJpaRepository;
 
     @Override
     public Usuario save(UsuarioRequest usuario) {
@@ -51,22 +56,30 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuario == null) {
             return null;
         }
+        Role role = roleJpaRepository.findById(usuarioRequest.getIdRol()).orElse(null);
+        if (role == null) {
+            return null;
+        }
         usuario.setNombre(usuarioRequest.getNombre());
         usuario.setApellido(usuarioRequest.getApellido());
         usuario.setEmail(usuarioRequest.getEmail());
         usuario.setPassword(usuarioRequest.getPassword());
-        usuario.setIdRol(usuarioRequest.getRol());
+        usuario.setIdRol(role);
         usuario.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         return usuarioJpaRepository.save(usuario);
     }
 
     private Usuario toEntity(UsuarioRequest usuarioRequest) {
+        Role role = roleJpaRepository.findById(usuarioRequest.getIdRol()).orElse(null);
+        if (role == null) {
+            return null;
+        }
         return Usuario.builder()
                 .nombre(usuarioRequest.getNombre())
                 .apellido(usuarioRequest.getApellido())
                 .email(usuarioRequest.getEmail())
                 .password(usuarioRequest.getPassword())
-                .idRol(usuarioRequest.getRol())
+                .idRol(role)
                 .fechaNacimiento(usuarioRequest.getFechaNacimiento())
                 .build();
     }
