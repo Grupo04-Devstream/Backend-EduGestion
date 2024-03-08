@@ -2,6 +2,7 @@ package com.example.backendedugestion.repository.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "departamentos")
 @NoArgsConstructor
@@ -26,8 +28,4 @@ public class Departamento {
 
     @Column(name = "descripcion", length = Integer.MAX_VALUE)
     private String descripcion;
-
-    @OneToMany(mappedBy = "idDepartamento")
-    private Set<Trabajadore> trabajadores = new LinkedHashSet<>();
-
 }
