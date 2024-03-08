@@ -21,8 +21,7 @@ public class Usuario {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(/*fetch = FetchType.LAZY*/)
+    @ManyToOne()
     @JoinColumn(name = "id_rol")
     private Role idRol;
 
