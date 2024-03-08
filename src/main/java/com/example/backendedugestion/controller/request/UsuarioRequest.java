@@ -17,5 +17,5 @@ public class UsuarioRequest {
     private LocalDate fechaNacimiento;
     private String email;
     private String password;
-    private Role rol;
+    private Integer idRol;
 }
