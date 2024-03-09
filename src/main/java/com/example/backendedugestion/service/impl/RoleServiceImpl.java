@@ -4,6 +4,7 @@ import com.example.backendedugestion.controller.request.RoleRequest;
 import com.example.backendedugestion.repository.RoleJpaRepository;
 import com.example.backendedugestion.repository.model.Role;
 import com.example.backendedugestion.service.RoleService;
+import com.example.backendedugestion.service.exception.NotFoundTipoDocumentoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +29,25 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() {
         return roleJpaRepository.findAll();
     }
+
     @Override
-    public boolean deleteById(Integer id) {
-        roleJpaRepository.deleteById(id);
-        return true;
+    public Role update(Role roleRequest) {
+        Role nivele = roleJpaRepository.findById(roleRequest.getId()).orElse(null);
+        if(nivele == null){
+            throw new NotFoundTipoDocumentoException("El tipo de documento no existe");
+        }
+        nivele.setNombre(roleRequest.getNombre());
+        return roleJpaRepository.save(nivele);
     }
 
     @Override
-    public Role update(Integer id, RoleRequest roleRequest) {
-        Role rol = roleJpaRepository.findById(id).orElse(null);
-        if (rol == null) {
-            return null;
+    public Role delete(Integer id) {
+        Role nivele = roleJpaRepository.findById(id).orElse(null);
+        if(nivele == null){
+            throw new NotFoundTipoDocumentoException("El tipo de documento no existe");
         }
-        rol.setNombre(roleRequest.getNombre());
-        rol.setDescripcion(roleRequest.getDescripcion());
-        return roleJpaRepository.save(rol);
+        roleJpaRepository.delete(nivele);
+        return nivele;
     }
 
     private Role toEntity(RoleRequest roleRequest) {
@@ -51,5 +56,5 @@ public class RoleServiceImpl implements RoleService {
                 .descripcion(roleRequest.getDescripcion())
                 .build();
     }
-}
 
+}

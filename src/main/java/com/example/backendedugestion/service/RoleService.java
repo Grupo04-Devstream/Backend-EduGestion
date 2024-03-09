@@ -9,6 +9,7 @@ public interface RoleService {
     Role save(RoleRequest roleRequest);
     Role findById(Integer id);
     List<Role> findAll();
-    boolean deleteById(Integer id);
-    Role update(Integer id, RoleRequest roleRequest);
+
+    Role delete(Integer id);
+    Role update(Role roleRequest);
 }
