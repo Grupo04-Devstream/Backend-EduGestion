@@ -1,6 +1,7 @@
 package com.example.backendedugestion.controller;
 
 import com.example.backendedugestion.controller.request.RoleRequest;
+import com.example.backendedugestion.controller.wrapper.WrapperGenericoObjetos;
 import com.example.backendedugestion.repository.model.Role;
 import com.example.backendedugestion.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,18 @@ public class RoleController {
     }
 
     @DeleteMapping("/rol/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Integer id) {
-        return ResponseEntity.ok(roleService.deleteById(id));
+    public ResponseEntity<WrapperGenericoObjetos<Role>> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(WrapperGenericoObjetos.<Role>builder()
+                .datos(roleService.delete(id))
+                .build());
     }
 
     @PutMapping("/rol/{id}")
-    public ResponseEntity<Role> update(@PathVariable Integer id, @RequestBody RoleRequest roleRequest) {
-        return ResponseEntity.ok(roleService.update(id, roleRequest));
+    public ResponseEntity<WrapperGenericoObjetos<Role>> update(
+            @RequestBody WrapperGenericoObjetos<Role> roleRequest
+    ) {
+        return ResponseEntity.ok(WrapperGenericoObjetos.<Role>builder()
+                .datos(roleService.update(roleRequest.getDatos()))
+                .build());
     }
 }

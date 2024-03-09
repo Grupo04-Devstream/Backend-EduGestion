@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -23,6 +24,6 @@ public class Nivele {
     private String nombre;
 
     @OneToMany(mappedBy = "idNivel")
-    private Set<Grado> grados = new LinkedHashSet<>();
+    private List<Grado> grados;
 
 }

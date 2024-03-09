@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface NivelService {
     Nivele save(NivelRequest nivelRequest);
+
     Nivele findById(Integer id);
+
     List<Nivele> findAll();
-    boolean deleteById(Integer id);
-    Nivele update(Integer id, NivelRequest nivelRequest);
+
+    Nivele delete(Integer id);
+
+    Nivele update(Nivele nivelRequest);
 }
