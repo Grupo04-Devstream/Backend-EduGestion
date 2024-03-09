@@ -1,6 +1,7 @@
 package com.example.backendedugestion.controller;
 
 import com.example.backendedugestion.controller.request.NivelRequest;
+import com.example.backendedugestion.controller.wrapper.WrapperGenericoObjetos;
 import com.example.backendedugestion.repository.model.Nivele;
 import com.example.backendedugestion.service.NivelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -32,12 +34,18 @@ public class NivelController {
     }
 
     @DeleteMapping("/nivel/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Integer id) {
-        return ResponseEntity.ok(nivelService.deleteById(id));
+    public ResponseEntity<WrapperGenericoObjetos<Nivele>> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(WrapperGenericoObjetos.<Nivele>builder()
+                .datos(nivelService.delete(id))
+                .build());
     }
 
     @PutMapping("/nivel/{id}")
-    public ResponseEntity<Nivele> update(@PathVariable Integer id, @RequestBody NivelRequest nivelRequest) {
-        return ResponseEntity.ok(nivelService.update(id, nivelRequest));
+    public ResponseEntity<WrapperGenericoObjetos<Nivele>> update(
+            @RequestBody WrapperGenericoObjetos<Nivele> niveleRequest
+    ) {
+        return ResponseEntity.ok(WrapperGenericoObjetos.<Nivele>builder()
+                .datos(nivelService.update(niveleRequest.getDatos()))
+                .build());
     }
 }
