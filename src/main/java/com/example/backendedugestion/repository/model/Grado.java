@@ -28,7 +28,4 @@ public class Grado {
     @Column(name = "gradonro")
     private Integer gradonro;
 
-    @OneToMany(mappedBy = "idGrado")
-    private Set<Seccione> secciones = new LinkedHashSet<>();
-
 }

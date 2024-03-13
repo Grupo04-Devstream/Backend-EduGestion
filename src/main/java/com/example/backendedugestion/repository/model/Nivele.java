@@ -23,7 +23,4 @@ public class Nivele {
     @Column(name = "nombre", length = 30)
     private String nombre;
 
-    @OneToMany(mappedBy = "idNivel")
-    private List<Grado> grados;
-
 }
