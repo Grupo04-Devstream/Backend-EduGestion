@@ -5,6 +5,7 @@ import com.example.backendedugestion.controller.wrapper.WrapperGenericoObjetos;
 import com.example.backendedugestion.repository.model.Nivele;
 import com.example.backendedugestion.service.NivelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,8 @@ public class NivelController {
                 .build());
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<WrapperGenericoObjetos<Nivele>> update(
             @RequestBody WrapperGenericoObjetos<Nivele> niveleRequest
     ) {
