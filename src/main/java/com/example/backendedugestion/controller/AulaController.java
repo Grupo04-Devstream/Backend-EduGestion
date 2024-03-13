@@ -3,7 +3,6 @@ package com.example.backendedugestion.controller;
 import com.example.backendedugestion.controller.request.AulaRequest;
 import com.example.backendedugestion.repository.model.Aula;
 import com.example.backendedugestion.service.AulaService;
-import com.example.backendedugestion.service.impl.AulaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

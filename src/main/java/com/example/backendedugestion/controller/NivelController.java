@@ -12,36 +12,36 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/nivel")
 @CrossOrigin(origins = "http://localhost:4200")
 public class NivelController {
 
     @Autowired
     private NivelService nivelService;
 
-    @GetMapping("/nivel")
+    @GetMapping()
     public ResponseEntity<List<Nivele>> findAll() {
         return ResponseEntity.ok(nivelService.findAll());
     }
 
-    @PostMapping("/nivel")
+    @PostMapping()
     public ResponseEntity<Nivele> save(@RequestBody NivelRequest nivelRequest) {
         return ResponseEntity.ok(nivelService.save(nivelRequest));
     }
 
-    @GetMapping("/nivel/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Nivele> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(nivelService.findById(id));
     }
 
-    @DeleteMapping("/nivel/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<WrapperGenericoObjetos<Nivele>> delete(@PathVariable Integer id) {
         return ResponseEntity.ok(WrapperGenericoObjetos.<Nivele>builder()
                 .datos(nivelService.delete(id))
                 .build());
     }
 
-    @PutMapping("/nivel/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<WrapperGenericoObjetos<Nivele>> update(
             @RequestBody WrapperGenericoObjetos<Nivele> niveleRequest
     ) {
