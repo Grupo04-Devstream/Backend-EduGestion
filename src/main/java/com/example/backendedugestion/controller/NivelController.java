@@ -44,11 +44,8 @@ public class NivelController {
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<WrapperGenericoObjetos<Nivele>> update(
-            @RequestBody WrapperGenericoObjetos<Nivele> niveleRequest
-    ) {
-        return ResponseEntity.ok(WrapperGenericoObjetos.<Nivele>builder()
-                .datos(nivelService.update(niveleRequest.getDatos()))
-                .build());
+    public ResponseEntity<Nivele> update(
+            @RequestBody Nivele niveleRequest) {
+        return ResponseEntity.ok(nivelService.update(niveleRequest));
     }
 }
